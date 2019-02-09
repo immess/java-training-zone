@@ -15,5 +15,36 @@
     <name>JTZ: SQL</name>
 
     <dependencies>
+        <dependency>
+            <groupId>com.h2database</groupId>
+            <artifactId>h2</artifactId>
+            <version>1.4.197</version>
+            <scope>runtime</scope>
+        </dependency>
     </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.liquibase</groupId>
+                <artifactId>liquibase-maven-plugin</artifactId>
+                <version>3.6.3</version>
+                <configuration>
+                    <changeLogFile>${basedir}/src/main/resources/db/changelog/db.changelog-master.xml</changeLogFile>
+                    <driver>org.h2.Driver</driver>
+                    <url>jdbc:h2:${basedir}/src/main/resources/sample/db</url>
+                    <username>root</username>
+                    <password>root</password>
+                </configuration>
+                <executions>
+                    <execution>
+                        <phase>process-resources</phase>
+                        <goals>
+                            <goal>update</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
 </project>
