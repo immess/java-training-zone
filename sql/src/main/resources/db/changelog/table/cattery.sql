@@ -1,13 +1,10 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<databaseChangeLog
-        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
-        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
+--liquibase formatted sql
 
-    <changeSet id="add_user_table" author="immess">
-        <createTable tableName="user">
-            <column name="id" type="bigint"/>
-        </createTable>
-    </changeSet>
-
-</databaseChangeLog>
+--changeset immess:add_cattery_table
+create table cattery
+(
+  id    identity primary key,
+  name  longnvarchar not null unique,
+  owner longnvarchar not null,
+  city  longnvarchar not null
+)

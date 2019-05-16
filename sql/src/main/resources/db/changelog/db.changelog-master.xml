@@ -4,6 +4,10 @@
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
 
-    <include file="table/user.xml" relativeToChangelogFile="true"/>
+    <include file="table/cattery.sql" relativeToChangelogFile="true"/>
+    <include file="table/cat.sql" relativeToChangelogFile="true"/>
+    <include file="table/litter.sql" relativeToChangelogFile="true"/>
+    <include file="table/exhibition.sql" relativeToChangelogFile="true"/>
+    <include file="table/prize.sql" relativeToChangelogFile="true"/>
 
 </databaseChangeLog>

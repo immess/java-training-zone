@@ -1,10 +1,10 @@
 --liquibase formatted sql
 
---changeset immess:add_cattery_table
-create table cattery
+--changeset immess:add_exhibition_table
+create table exhibition
 (
-  id    identity primary key,
-  name  longnvarchar not null unique,
-  owner longnvarchar not null,
-  city  longnvarchar not null
+  id         identity primary key,
+  name       longnvarchar not null,
+  start_date date         not null,
+  city       longnvarchar not null
 )
