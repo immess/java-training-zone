@@ -1,6 +1,6 @@
 package org.github.immess.t1;
 
-public class DynArray {
+public class DynArray implements Sequence{
     private static final int DEF_CAPACITY = 10;
     private static final double GROWTH_FACTOR = 2;
 
@@ -12,6 +12,7 @@ public class DynArray {
         this.size = 0;
     }
 
+    @Override
     public void push(int element) {
         if (size == array.length) {
             extendArray();
@@ -19,13 +20,17 @@ public class DynArray {
         array[size++] = element;
     }
 
+    @Override
     public int get(int index) {
-        checkIndex(index);
+        SequenceUtils.checkIndex(index, this);
+
         return array[index];
     }
 
+    @Override
     public int remove(int index) {
-        checkIndex(index);
+        SequenceUtils.checkIndex(index, this);
+
         int temp = array[index];
         for (int i = index; i < size - 1; ++i) {
             array[i] = array[i+1];
@@ -34,8 +39,10 @@ public class DynArray {
         return temp;
     }
 
+    @Override
     public void insert(int element, int index) {
-        checkIndex(index);
+        SequenceUtils.checkIndex(index, this);
+
         if (size == array.length) {
             extendArray();
         }
@@ -46,10 +53,12 @@ public class DynArray {
         size++;
     }
 
+    @Override
     public int size() {
         return size;
     }
 
+    @Override
     public int[] toArray() {
         int[] copiedArray = new int[size];
         System.arraycopy(array, 0, copiedArray, 0, size);
@@ -62,9 +71,4 @@ public class DynArray {
         this.array = biggerArray;
     }
 
-    private void checkIndex(int i) {
-        if (i >= size || i < 0) {
-            throw new ArrayIndexOutOfBoundsException("Index " + i + " is out of bound for size " + size + "!");
-        }
-    }
 }

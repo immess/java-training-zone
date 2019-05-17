@@ -3,10 +3,10 @@ package org.github.immess.t1;
 import org.junit.Assert;
 import org.junit.Test;
 
-public class DynArrayTest {
+public class QueueTest {
     @Test
     public void testPush() {
-        DynArray arr = new DynArray();
+        Queue arr = new Queue();
 
         arr.push(12464);
 
@@ -16,7 +16,7 @@ public class DynArrayTest {
 
     @Test
     public void testPushMany() {
-        DynArray arr = new DynArray();
+        Queue arr = new Queue();
         int[] source = new int[]{0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11};
 
         for (int item : source) {
@@ -30,7 +30,7 @@ public class DynArrayTest {
 
     @Test
     public void testRemoveSingleElement() {
-        DynArray arr = new DynArray();
+        Queue arr = new Queue();
 
         arr.push(78561);
         arr.remove(0);
@@ -40,7 +40,7 @@ public class DynArrayTest {
 
     @Test
     public void testRemoveSomeElement() {
-        DynArray arr = new DynArray();
+        Queue arr = new Queue();
         int[] source = new int[]{0, 1, 2, 3, 4, 5, 6, 7};
 
         for (int i : source) {
@@ -68,7 +68,7 @@ public class DynArrayTest {
 
     @Test(expected = ArrayIndexOutOfBoundsException.class)
     public void testRemoveElementOutOfIndex() {
-        DynArray arr = new DynArray();
+        Queue arr = new Queue();
 
         for (int i = 0; i < 3; ++i) {
             arr.push(i);
@@ -79,14 +79,14 @@ public class DynArrayTest {
 
     @Test(expected = ArrayIndexOutOfBoundsException.class)
     public void testRemoveFromEmptyArray() {
-        DynArray arr = new DynArray();
+        Queue arr = new Queue();
 
         arr.remove(0);
     }
 
     @Test
     public void testGet() {
-        DynArray arr = new DynArray();
+        Queue arr = new Queue();
 
         for (int i = 0; i < 4; ++i) {
             arr.push(i);
@@ -98,7 +98,7 @@ public class DynArrayTest {
 
     @Test(expected = ArrayIndexOutOfBoundsException.class)
     public void testGetOutOfBoundUp() {
-        DynArray arr = new DynArray();
+        Queue arr = new Queue();
 
         for (int i = 0; i < 4; ++i) {
             arr.push(i);
@@ -109,7 +109,7 @@ public class DynArrayTest {
 
     @Test(expected = ArrayIndexOutOfBoundsException.class)
     public void testGetOutOfBoundDown() {
-        DynArray arr = new DynArray();
+        Queue arr = new Queue();
 
         for (int i = 0; i < 4; ++i) {
             arr.push(i);
@@ -120,7 +120,7 @@ public class DynArrayTest {
 
     @Test
     public void testInsertSomeElement() {
-        DynArray arr = new DynArray();
+        Queue arr = new Queue();
         int[] source = new int[]{0, 1, 2, 3, 4};
 
         for (int i : source) {
@@ -136,7 +136,7 @@ public class DynArrayTest {
 
     @Test
     public void testInsertElementWithExtend() {
-        DynArray arr = new DynArray();
+        Queue arr = new Queue();
         int[] source = new int[]{0, 1, 2, 3, 4, 5, 6, 7, 8, 9};
 
         for (int i : source) {
