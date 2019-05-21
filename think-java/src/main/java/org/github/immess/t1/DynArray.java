@@ -40,7 +40,7 @@ public class DynArray implements Sequence{
     }
 
     @Override
-    public void insert(int element, int index) {
+    public void insert(int value, int index) {
         SequenceUtils.checkIndex(index, this);
 
         if (size == array.length) {
@@ -49,7 +49,7 @@ public class DynArray implements Sequence{
         for (int i = size; i > index; i--) {
             array[i] = array[i-1];
         }
-        array[index] = element;
+        array[index] = value;
         size++;
     }
 

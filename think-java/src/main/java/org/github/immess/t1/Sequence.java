@@ -7,9 +7,9 @@ public interface Sequence {
 
     int remove(int index);
 
-    void insert(int element, int index);
+    void insert(int value, int index);
 
     int size();
 
-    public int[] toArray();
+    int[] toArray();
 }
