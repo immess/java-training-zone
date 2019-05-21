@@ -1,6 +1,6 @@
-package org.github.immess.t1;
+package org.github.immess.structure;
 
-public class Queue implements Sequence, Popable {
+public class Queue implements Sequence {
     private QElement head;
     private QElement tail;
     private int size;
@@ -23,13 +23,12 @@ public class Queue implements Sequence, Popable {
         ++size;
     }
 
-    @Override
+
     public int pop() {
-        --size;
         return remove(0);
     }
 
-    @Override
+
     public int peek() {
         return get(0);
     }

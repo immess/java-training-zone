@@ -1,4 +1,4 @@
-package org.github.immess.t1;
+package org.github.immess.structure;
 
 public interface Sequence {
     void push(int value);

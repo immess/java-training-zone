@@ -1,4 +1,4 @@
-package org.github.immess.t1;
+package org.github.immess.structure;
 
 public class DynArrayTest extends AbstractSequenceTest {
     @Override

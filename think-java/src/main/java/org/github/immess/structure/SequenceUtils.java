@@ -1,4 +1,4 @@
-package org.github.immess.t1;
+package org.github.immess.structure;
 
 public class SequenceUtils {
     public static void checkIndex(int i, int size) {

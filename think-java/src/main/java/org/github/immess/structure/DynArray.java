@@ -1,4 +1,4 @@
-package org.github.immess.t1;
+package org.github.immess.structure;
 
 public class DynArray implements Sequence{
     private static final int DEF_CAPACITY = 10;

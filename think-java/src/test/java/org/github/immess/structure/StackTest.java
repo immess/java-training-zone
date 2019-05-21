@@ -1,4 +1,4 @@
-package org.github.immess.t1;
+package org.github.immess.structure;
 
 import org.junit.Assert;
 import org.junit.Test;
