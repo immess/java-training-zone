@@ -4,19 +4,15 @@ import org.github.immess.structure.DynArray;
 
 import java.util.Arrays;
 
-public class DynArrayCommandHandler implements CommandHandler {
-    DynArray array = new DynArray();
-    
+public class DynArrayCommandHandler extends SimpleCommandHandler {
+    private final DynArray array = new DynArray();
+
     @Override
-    public HandleResult handle(String command, String[] args) {
-        return new HandleResult(this, doActualHandle(command, args));
-    }
-    
-    private String doActualHandle(String command, String[] args) {
+    protected String doActualHandle(String command, String[] args) {
         switch (command) {
             case "push": {
                 array.push(Integer.parseInt(args[0]));
-                return "Pushed " + args[0] + " into an array";
+                return "Pushed element: " + args[0];
             }
             case "get":
                 return String.format("Got element `%d` at index `%s`", array.get(Integer.parseInt(args[0])), args[0]);
@@ -26,11 +22,16 @@ public class DynArrayCommandHandler implements CommandHandler {
                 array.insert(Integer.parseInt(args[0]), Integer.parseInt(args[1]));
                 return String.format("Insert element `%s` at index `%s`", args[0], args[1]);
             case "size":
-                return "Size of array is " + array.size();
+                return "Size is " + array.size();
             case "list":
-                return "array: " + Arrays.toString(array.toArray());
+                return getName() + ": " + Arrays.toString(array.toArray());
             default:
                 return "Error: unknown command";
         }
+    }
+
+    @Override
+    public String getName() {
+        return "DynArray";
     }
 }

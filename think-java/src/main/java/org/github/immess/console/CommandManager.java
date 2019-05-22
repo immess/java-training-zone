@@ -27,13 +27,13 @@ public class CommandManager implements Runnable {
         writer.println("\nWaiting for command...");
         while (scanner.hasNextLine()) {
             String inputLine = scanner.nextLine();
-            writer.println("Got this: " + inputLine);
+//            writer.println("Got this: " + inputLine);
 
             if (!handleNextCommand(inputLine)) {
                 return;
             }
 
-            writer.println("\nWaiting for command...");
+//            writer.println("\nWaiting for command...");
         }
 
         writer.println("Exiting");
@@ -44,7 +44,7 @@ public class CommandManager implements Runnable {
         String command = inputParts[0];
         String[] args = Arrays.copyOfRange(inputParts, 1, inputParts.length);
 
-        writer.println(String.format("Parsed command `%s` with arguments %s", command, Arrays.toString(args)));
+//        writer.println(String.format("Parsed command `%s` with arguments %s", command, Arrays.toString(args)));
 
         if (context.shouldEnd(command)) {
             return false;

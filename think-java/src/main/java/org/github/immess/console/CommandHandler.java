@@ -7,7 +7,7 @@ public interface CommandHandler {
 
     HandleResult handle(String command, String[] args);
 
-    class HandleResult{
+    class HandleResult {
         public final CommandHandler next;
         public final String result;
 
@@ -15,5 +15,11 @@ public interface CommandHandler {
             this.next = next;
             this.result = result;
         }
+
+        public HandleResult(String result) {
+            this(null, result);
+        }
     }
+
+    String getName();
 }

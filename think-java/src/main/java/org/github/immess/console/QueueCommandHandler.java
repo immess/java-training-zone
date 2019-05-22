@@ -4,24 +4,20 @@ import org.github.immess.structure.Queue;
 
 import java.util.Arrays;
 
-public class QueueCommandHandler implements CommandHandler {
-    Queue queue = new Queue();
+public class QueueCommandHandler extends SimpleCommandHandler {
+    private final Queue queue = new Queue();
 
     @Override
-    public HandleResult handle(String command, String[] args) {
-        return new HandleResult(this, doActualHandle(command, args));
-    }
-
-    private String doActualHandle(String command, String[] args) {
+    protected String doActualHandle(String command, String[] args) {
         switch (command) {
             case "push": {
                 queue.push(Integer.parseInt(args[0]));
-                return "Pushed " + args[0] + " into a queue";
+                return "Pushed: " + args[0];
             }
             case "pop":
-                return "Popped element " + queue.pop();
+                return "Popped element: " + queue.pop();
             case "peek":
-                return "Peeked element " + queue.peek();
+                return "Peeked element: " + queue.peek();
             case "get":
                 return String.format("Got element `%d` at index `%s`", queue.get(Integer.parseInt(args[0])), args[0]);
             case "remove":
@@ -30,11 +26,16 @@ public class QueueCommandHandler implements CommandHandler {
                 queue.insert(Integer.parseInt(args[0]), Integer.parseInt(args[1]));
                 return String.format("Insert element `%s` at index `%s`", args[0], args[1]);
             case "size":
-                return "Size of queue is " + queue.size();
+                return "Size is " + queue.size();
             case "list":
-                return "Queue: " + Arrays.toString(queue.toArray());
+                return getName() + ": " + Arrays.toString(queue.toArray());
             default:
                 return "Error: unknown command";
         }
+    }
+
+    @Override
+    public String getName() {
+        return "Queue";
     }
 }

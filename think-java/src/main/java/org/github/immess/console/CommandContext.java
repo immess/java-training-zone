@@ -19,12 +19,13 @@ public class CommandContext {
                 return "Error: can't exit anymore";
             }
             stack.pop();
-            return "context back";
+            return "Back to " + stack.peek().getName();
         }
 
         CommandHandler.HandleResult handleResult = stack.peek().handle(command, args);
-        if (handleResult.next != stack.peek()) {
+        if (handleResult.next != stack.peek() && handleResult.next != null) {
             stack.push(handleResult.next);
+            return String.format("Change context to %s. Result: %s", handleResult.next.getName(), handleResult.result);
         }
 
         return handleResult.result;

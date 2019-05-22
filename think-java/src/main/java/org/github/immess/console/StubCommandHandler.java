@@ -5,4 +5,9 @@ public class StubCommandHandler implements CommandHandler {
     public HandleResult handle(String command, String[] args) {
         return new HandleResult(this, "Handled this command: " + command);
     }
+
+    @Override
+    public String getName() {
+        return "Simple";
+    }
 }
