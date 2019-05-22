@@ -24,6 +24,7 @@ public class CommandManager implements Runnable {
     public void run() {
         writer.println("Ready to get commands");
 
+        writer.println(context.getContextInfo());
         writer.println("\nWaiting for command...");
         while (scanner.hasNextLine()) {
             String inputLine = scanner.nextLine();

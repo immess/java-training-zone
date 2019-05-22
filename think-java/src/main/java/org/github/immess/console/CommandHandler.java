@@ -22,4 +22,5 @@ public interface CommandHandler {
     }
 
     String getName();
+    String[] getCommands();
 }

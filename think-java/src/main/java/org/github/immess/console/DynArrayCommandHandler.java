@@ -10,10 +10,9 @@ public class DynArrayCommandHandler extends SimpleCommandHandler {
     @Override
     protected String doActualHandle(String command, String[] args) {
         switch (command) {
-            case "push": {
+            case "push":
                 array.push(Integer.parseInt(args[0]));
                 return "Pushed element: " + args[0];
-            }
             case "get":
                 return String.format("Got element `%d` at index `%s`", array.get(Integer.parseInt(args[0])), args[0]);
             case "remove":
@@ -26,12 +25,17 @@ public class DynArrayCommandHandler extends SimpleCommandHandler {
             case "list":
                 return getName() + ": " + Arrays.toString(array.toArray());
             default:
-                return "Error: unknown command";
+                return null;
         }
     }
 
     @Override
     public String getName() {
         return "DynArray";
+    }
+
+    @Override
+    public String[] getCommands() {
+        return new String[]{"push", "get", "remove", "insert", "size", "list"};
     }
 }

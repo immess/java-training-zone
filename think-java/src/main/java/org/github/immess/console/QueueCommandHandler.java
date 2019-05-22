@@ -10,10 +10,9 @@ public class QueueCommandHandler extends SimpleCommandHandler {
     @Override
     protected String doActualHandle(String command, String[] args) {
         switch (command) {
-            case "push": {
+            case "push":
                 queue.push(Integer.parseInt(args[0]));
                 return "Pushed: " + args[0];
-            }
             case "pop":
                 return "Popped element: " + queue.pop();
             case "peek":
@@ -30,12 +29,17 @@ public class QueueCommandHandler extends SimpleCommandHandler {
             case "list":
                 return getName() + ": " + Arrays.toString(queue.toArray());
             default:
-                return "Error: unknown command";
+                return null;
         }
     }
 
     @Override
     public String getName() {
         return "Queue";
+    }
+
+    @Override
+    public String[] getCommands() {
+        return new String[]{"push", "pop", "peek", "get", "remove", "insert", "size", "list"};
     }
 }

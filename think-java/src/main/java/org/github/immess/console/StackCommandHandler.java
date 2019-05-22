@@ -10,10 +10,9 @@ public class StackCommandHandler extends SimpleCommandHandler {
     @Override
     protected String doActualHandle(String command, String[] args) {
         switch (command) {
-            case "push": {
+            case "push":
                 stack.push(Integer.parseInt(args[0]));
                 return "Pushed element: " + args[0];
-            }
             case "pop":
                 return "Popped element: " + stack.pop();
             case "peek":
@@ -23,12 +22,17 @@ public class StackCommandHandler extends SimpleCommandHandler {
             case "list":
                 return getName() + ": " + Arrays.toString(stack.toArray());
             default:
-                return "Error: unknown command";
+                return null;
         }
     }
 
     @Override
     public String getName() {
         return "Stack";
+    }
+
+    @Override
+    public String[] getCommands() {
+        return new String[]{"push", "pop", "peek", "size", "list"};
     }
 }

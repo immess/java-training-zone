@@ -1,5 +1,6 @@
 package org.github.immess.console;
 
+import java.util.Arrays;
 import java.util.Stack;
 
 /**
@@ -19,16 +20,31 @@ public class CommandContext {
                 return "Error: can't go back anymore";
             }
             stack.pop();
-            return "Back to " + stack.peek().getName();
+            return String.format("Back to %s. %s", stack.peek().getName(), availableCommands());
         }
 
         CommandHandler.HandleResult handleResult = stack.peek().handle(command, args);
         if (handleResult.next != stack.peek() && handleResult.next != null) {
             stack.push(handleResult.next);
-            return String.format("Change context to %s. Result: %s", handleResult.next.getName(), handleResult.result);
+            String answer = String.format("Change context to %s. %s", stack.peek().getName(), availableCommands());
+            if (handleResult.result != null) {
+                answer += "\nResult: " + handleResult.result;
+            }
+            return answer;
+        }
+        if (handleResult.result == null) {
+            return String.format("Error: unknown command for %s. %s", stack.peek().getName(), availableCommands());
         }
 
         return handleResult.result;
+    }
+
+    private String availableCommands() {
+        return "Available commands: " + Arrays.toString(stack.peek().getCommands());
+    }
+
+    public String getContextInfo() {
+        return String.format("Current context: %s. %s", stack.peek().getName(), availableCommands());
     }
 
     public boolean shouldEnd(String command) {

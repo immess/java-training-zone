@@ -1,13 +1,18 @@
 package org.github.immess.console;
 
-public class StubCommandHandler implements CommandHandler {
+public class StubCommandHandler extends SimpleCommandHandler {
     @Override
-    public HandleResult handle(String command, String[] args) {
-        return new HandleResult(this, "Handled this command: " + command);
+    protected String doActualHandle(String command, String[] args) {
+        return "Handled this command: " + command;
     }
 
     @Override
     public String getName() {
-        return "Simple";
+        return "Stub";
+    }
+
+    @Override
+    public String[] getCommands() {
+        return new String[]{"Any command"};
     }
 }
