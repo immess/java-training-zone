@@ -5,7 +5,7 @@ public class Launcher {
         CommandManager manager = new CommandManager(
             System.in,
             System.out,
-            new CommandContext(new StubCommandHandler()));
+        new CommandContext(new RouterCommandHandler()));
         manager.run();
 
     }
