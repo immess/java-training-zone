@@ -14,9 +14,9 @@ public class CommandContext {
     }
 
     public String handle(String command, String[] args) {
-        if (isExitCommand(command)) {
+        if (isBackCommand(command)) {
             if (stack.size() == 1) {
-                return "Error: can't exit anymore";
+                return "Error: can't go back anymore";
             }
             stack.pop();
             return "Back to " + stack.peek().getName();
@@ -32,10 +32,14 @@ public class CommandContext {
     }
 
     public boolean shouldEnd(String command) {
-        return stack.size() == 1 && isExitCommand(command);
+        return isExitCommand(command) || (isBackCommand(command) && stack.size() == 1);
     }
 
     private boolean isExitCommand(String command) {
         return "exit".equals(command);
+    }
+
+    private boolean isBackCommand(String command) {
+        return "back".equals(command);
     }
 }
