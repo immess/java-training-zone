@@ -1,4 +1,4 @@
-package org.github.immess.console;
+package org.github.immess.console.Impl;
 
 import org.github.immess.structure.DynArray;
 

@@ -23,7 +23,7 @@ public class CommandContext {
             return String.format("Back to %s. %s", stack.peek().getName(), availableCommands());
         }
 
-        CommandHandler.HandleResult handleResult = stack.peek().handle(command, args);
+        HandleResult handleResult = stack.peek().handle(command, args);
         if (handleResult.next != stack.peek() && handleResult.next != null) {
             stack.push(handleResult.next);
             String answer = String.format("Change context to %s. %s", stack.peek().getName(), availableCommands());

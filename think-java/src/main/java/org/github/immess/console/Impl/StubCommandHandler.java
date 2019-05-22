@@ -1,4 +1,4 @@
-package org.github.immess.console;
+package org.github.immess.console.Impl;
 
 public class StubCommandHandler extends SimpleCommandHandler {
     @Override
