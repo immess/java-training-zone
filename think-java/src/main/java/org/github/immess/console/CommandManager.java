@@ -31,13 +31,13 @@ public class CommandManager implements Runnable {
 //            writer.println("Got this: " + inputLine);
 
             if (!handleNextCommand(inputLine)) {
+                writer.println("Exiting");
                 return;
             }
 
 //            writer.println("\nWaiting for command...");
         }
 
-        writer.println("Exiting");
     }
 
     private boolean handleNextCommand(String inputLine) {

@@ -7,10 +7,12 @@ public class RouterCommandHandler implements CommandHandler {
     @Override
     public HandleResult handle(String command, String[] args) {
         switch (command) {
-            case "array": return new HandleResult(new DynArrayCommandHandler(), "OK");
-            case "stack": return new HandleResult(new StackCommandHandler(), null);
-            case "bstack": return new HandleResult(new StackBetterCommandHandler(), null);
-            case "queue": return new HandleResult(new QueueCommandHandler(), null);
+            //case "array": return new HandleResult(new DynArrayCommandHandler(), "OK");
+            case "array": return new HandleResult(new DynArrayBetterCommandHandler(), null);
+            //case "stack": return new HandleResult(new StackCommandHandler(), null);
+            case "stack": return new HandleResult(new StackBetterCommandHandler(), null);
+            //case "queue": return new HandleResult(new QueueCommandHandler(), null);
+            case "queue": return new HandleResult(new QueueBetterCommandHandler(), null);
             default: return new HandleResult(null);
         }
     }
@@ -22,6 +24,6 @@ public class RouterCommandHandler implements CommandHandler {
 
     @Override
     public String[] getCommands() {
-        return new String[]{"array", "stack", "bstack", "queue"};
+        return new String[]{"array", "stack", "queue"};
     }
 }
