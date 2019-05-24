@@ -1,4 +1,4 @@
-package org.github.immess.console.Impl;
+package org.github.immess.console;
 
 import org.github.immess.console.CommandHandler;
 import org.github.immess.console.HandleResult;

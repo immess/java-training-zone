@@ -3,10 +3,10 @@ package org.github.immess.console;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
-public abstract class AbstractBetterCommandHandler implements CommandHandler {
+public abstract class AbstractCommandHandler implements CommandHandler {
     private final Map<String, Command> handlers = new LinkedHashMap<>();
 
-    public AbstractBetterCommandHandler(){
+    public AbstractCommandHandler(){
         defineCommands(handlers);
     }
 

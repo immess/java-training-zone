@@ -1,16 +1,16 @@
 package org.github.immess.console;
 
-import org.github.immess.console.Impl.StackBetterCommandHandler;
+import org.github.immess.console.Impl.StackCommandHandler;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
 public class StackCommandHandlerTest {
-    private StackBetterCommandHandler handler;
+    private StackCommandHandler handler;
 
     @Before
     public void init() {
-        handler = new StackBetterCommandHandler();
+        handler = new StackCommandHandler();
     }
 
     @Test

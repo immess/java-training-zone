@@ -1,17 +1,16 @@
 package org.github.immess.console;
 
-import org.github.immess.console.Impl.QueueBetterCommandHandler;
 import org.github.immess.console.Impl.QueueCommandHandler;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
 public class QueueCommandHandlerTest {
-    private QueueBetterCommandHandler handler;
+    private QueueCommandHandler handler;
 
     @Before
     public void init(){
-        handler = new QueueBetterCommandHandler();
+        handler = new QueueCommandHandler();
     }
 
     @Test

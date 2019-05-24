@@ -1,29 +1,21 @@
 package org.github.immess.console.Impl;
 
-import org.github.immess.console.CommandHandler;
+import org.github.immess.console.AbstractCommandHandler;
+import org.github.immess.console.Command;
 import org.github.immess.console.HandleResult;
 
-public class RouterCommandHandler implements CommandHandler {
+import java.util.Map;
+
+public class RouterCommandHandler extends AbstractCommandHandler {
     @Override
-    public HandleResult handle(String command, String[] args) {
-        switch (command) {
-            //case "array": return new HandleResult(new DynArrayCommandHandler(), "OK");
-            case "array": return new HandleResult(new DynArrayBetterCommandHandler(), null);
-            //case "stack": return new HandleResult(new StackCommandHandler(), null);
-            case "stack": return new HandleResult(new StackBetterCommandHandler(), null);
-            //case "queue": return new HandleResult(new QueueCommandHandler(), null);
-            case "queue": return new HandleResult(new QueueBetterCommandHandler(), null);
-            default: return new HandleResult(null);
-        }
+    protected void defineCommands(Map<String, Command> handlers) {
+        handlers.put("array", args -> new HandleResult(new DynArrayCommandHandler(), null));
+        handlers.put("stack", args -> new HandleResult(new StackCommandHandler(), null));
+        handlers.put("queue", args -> new HandleResult(new QueueCommandHandler(), null));
     }
 
     @Override
     public String getName() {
         return "Router";
-    }
-
-    @Override
-    public String[] getCommands() {
-        return new String[]{"array", "stack", "queue"};
     }
 }

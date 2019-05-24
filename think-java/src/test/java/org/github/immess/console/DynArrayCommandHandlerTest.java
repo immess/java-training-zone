@@ -1,16 +1,16 @@
 package org.github.immess.console;
 
-import org.github.immess.console.Impl.DynArrayBetterCommandHandler;
+import org.github.immess.console.Impl.DynArrayCommandHandler;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
 public class DynArrayCommandHandlerTest {
-    private DynArrayBetterCommandHandler handler;
+    private DynArrayCommandHandler handler;
 
     @Before
     public void init() {
-        handler = new DynArrayBetterCommandHandler();
+        handler = new DynArrayCommandHandler();
     }
 
     @Test

@@ -1,5 +1,7 @@
 package org.github.immess.console.Impl;
 
+import org.github.immess.console.SimpleCommandHandler;
+
 public class StubCommandHandler extends SimpleCommandHandler {
     @Override
     protected String doActualHandle(String command, String[] args) {

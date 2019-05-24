@@ -1,30 +1,15 @@
 package org.github.immess.console.Impl;
 
+import org.github.immess.console.AbstractCommandHandler;
+import org.github.immess.console.Command;
+import org.github.immess.console.HandleResult;
 import org.github.immess.structure.Stack;
 
 import java.util.Arrays;
+import java.util.Map;
 
-public class StackCommandHandler extends SimpleCommandHandler {
+public class StackCommandHandler extends AbstractCommandHandler {
     private final Stack stack = new Stack();
-
-    @Override
-    protected String doActualHandle(String command, String[] args) {
-        switch (command) {
-            case "push":
-                stack.push(Integer.parseInt(args[0]));
-                return "Pushed element: " + args[0];
-            case "pop":
-                return "Popped element: " + stack.pop();
-            case "peek":
-                return "Peeked element: " + stack.peek();
-            case "size":
-                return "Size is " + stack.size();
-            case "list":
-                return getName() + ": " + Arrays.toString(stack.toArray());
-            default:
-                return null;
-        }
-    }
 
     @Override
     public String getName() {
@@ -32,7 +17,15 @@ public class StackCommandHandler extends SimpleCommandHandler {
     }
 
     @Override
-    public String[] getCommands() {
-        return new String[]{"push", "pop", "peek", "size", "list"};
+    protected void defineCommands(Map<String, Command> handlers) {
+        handlers.put("push", args -> {
+            stack.push(Integer.parseInt(args[0]));
+            return new HandleResult("Pushed element: " + args[0]);
+        });
+        handlers.put("pop", args -> new HandleResult("Popped element: " + stack.pop()));
+        handlers.put("peek", args -> new HandleResult("Peeked element: " + stack.peek()));
+        handlers.put("size", args -> new HandleResult("Size is " + stack.size()));
+        handlers.put("list", args -> new HandleResult(getName() + ": " + Arrays.toString(stack.toArray())));
+        handlers.put("magic", args -> new HandleResult(new StackCommandHandler(), "weeee"));
     }
 }
