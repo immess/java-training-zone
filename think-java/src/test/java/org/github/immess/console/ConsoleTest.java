@@ -1,6 +1,6 @@
 package org.github.immess.console;
 
-import org.github.immess.console.Impl.RouterCommandHandler;
+import org.github.immess.console.structure.RouterCommandHandler;
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -16,10 +16,14 @@ public class ConsoleTest {
             "exit";
 
         String expected = "Ready to get commands\n" +
-            "Current context: Router. Available commands: [array, stack, queue]\n" +
+            "Current context: Router.\n" +
+            "Type\n" +
+            "\t'help' to see available commands;\n" +
+            "\t'back' to go to previous context;\n" +
+            "\t'exit' to exit.\n" +
             "\n" +
             "Waiting for command...\n" +
-            "Change context to Stack. Available commands: [push, pop, peek, size, list, magic]\n" +
+            "Change context to Stack. Available commands: [help, push, pop, peek, size, list, magic]\n" +
             "Pushed element: 45\n" +
             "Peeked element: 45\n" +
             "Exiting\n";

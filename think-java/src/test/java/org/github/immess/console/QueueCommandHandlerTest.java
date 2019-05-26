@@ -1,6 +1,6 @@
 package org.github.immess.console;
 
-import org.github.immess.console.Impl.QueueCommandHandler;
+import org.github.immess.console.structure.QueueCommandHandler;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -122,7 +122,7 @@ public class QueueCommandHandlerTest {
 
     @Test
     public void getCommandTest() {
-        String[] expected = {"push", "peek", "pop", "insert", "remove", "get", "size", "list"};
+        String[] expected = {"help", "push", "peek", "pop", "insert", "remove", "get", "size", "list"};
         Assert.assertArrayEquals(expected, handler.getCommands());
     }
 }

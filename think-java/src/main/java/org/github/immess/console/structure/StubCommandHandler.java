@@ -1,4 +1,4 @@
-package org.github.immess.console.Impl;
+package org.github.immess.console.structure;
 
 import org.github.immess.console.SimpleCommandHandler;
 

@@ -1,9 +1,9 @@
 package org.github.immess.console;
 
-import org.github.immess.console.Impl.DynArrayCommandHandler;
-import org.github.immess.console.Impl.QueueCommandHandler;
-import org.github.immess.console.Impl.RouterCommandHandler;
-import org.github.immess.console.Impl.StackCommandHandler;
+import org.github.immess.console.structure.DynArrayCommandHandler;
+import org.github.immess.console.structure.QueueCommandHandler;
+import org.github.immess.console.structure.RouterCommandHandler;
+import org.github.immess.console.structure.StackCommandHandler;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -54,7 +54,7 @@ public class RouterCommandHandlerTest {
     @Test
     public void getCommandTest() {
 
-        String[] expected = {"array", "stack", "queue"};
+        String[] expected = {"help", "array", "stack", "queue"};
         Assert.assertArrayEquals(expected, handler.getCommands());
     }
 }

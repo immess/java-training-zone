@@ -1,4 +1,4 @@
-package org.github.immess.console.Impl;
+package org.github.immess.console.structure;
 
 import org.github.immess.console.AbstractCommandHandler;
 import org.github.immess.console.Command;
@@ -18,6 +18,8 @@ public class StackCommandHandler extends AbstractCommandHandler {
 
     @Override
     protected void defineCommands(Map<String, Command> handlers) {
+        super.defineCommands(handlers);
+
         handlers.put("push", args -> {
             stack.push(Integer.parseInt(args[0]));
             return new HandleResult("Pushed element: " + args[0]);

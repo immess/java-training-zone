@@ -1,6 +1,7 @@
-package org.github.immess.console;
+package org.github.immess.console.structure;
 
-import org.github.immess.console.Impl.RouterCommandHandler;
+import org.github.immess.console.CommandContext;
+import org.github.immess.console.CommandManager;
 
 public class Launcher {
     public static void main(String[] args) {
@@ -9,6 +10,5 @@ public class Launcher {
             System.out,
         new CommandContext(new RouterCommandHandler()));
         manager.run();
-
     }
 }

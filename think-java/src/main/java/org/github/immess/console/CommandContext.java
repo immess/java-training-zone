@@ -44,7 +44,13 @@ public class CommandContext {
     }
 
     public String getContextInfo() {
-        return String.format("Current context: %s. %s", stack.peek().getName(), availableCommands());
+        return "Current context: "
+            + stack.peek().getName()
+            + ".\n" +
+            "Type\n" +
+            "\t'help' to see available commands;\n" +
+            "\t'back' to go to previous context;\n" +
+            "\t'exit' to exit.";
     }
 
     public boolean shouldEnd(String command) {

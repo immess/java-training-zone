@@ -1,6 +1,6 @@
 package org.github.immess.console;
 
-import org.github.immess.console.Impl.DynArrayCommandHandler;
+import org.github.immess.console.structure.DynArrayCommandHandler;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -98,7 +98,7 @@ public class DynArrayCommandHandlerTest {
 
     @Test
     public void getCommandTest() {
-        String[] expected = {"push", "get", "remove", "insert", "size", "list"};
+        String[] expected = {"help", "push", "get", "remove", "insert", "size", "list"};
         Assert.assertArrayEquals(expected, handler.getCommands());
     }
 }

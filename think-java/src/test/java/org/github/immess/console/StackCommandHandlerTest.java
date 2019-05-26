@@ -1,6 +1,6 @@
 package org.github.immess.console;
 
-import org.github.immess.console.Impl.StackCommandHandler;
+import org.github.immess.console.structure.StackCommandHandler;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -86,7 +86,7 @@ public class StackCommandHandlerTest {
 
     @Test
     public void getCommandTest() {
-        String[] expected = {"push", "pop", "peek", "size", "list", "magic"};
+        String[] expected = {"help", "push", "pop", "peek", "size", "list", "magic"};
         Assert.assertArrayEquals(expected, handler.getCommands());
     }
 }

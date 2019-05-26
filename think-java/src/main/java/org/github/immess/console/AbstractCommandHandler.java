@@ -1,5 +1,6 @@
 package org.github.immess.console;
 
+import java.util.Arrays;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
@@ -10,7 +11,9 @@ public abstract class AbstractCommandHandler implements CommandHandler {
         defineCommands(handlers);
     }
 
-    protected abstract void defineCommands(Map<String, Command> handlers);
+    protected void defineCommands(Map<String, Command> handlers) {
+        handlers.put("help", args -> new HandleResult("Available commands: " + Arrays.toString(getCommands())));
+    }
 
     @Override
     public final HandleResult handle(String command, String[] args) {
