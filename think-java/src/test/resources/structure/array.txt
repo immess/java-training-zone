@@ -1,0 +1,30 @@
+array
+help
+push 87
+insert 456 0
+push 325
+list
+get 1
+remove 1
+size
+ext
+exit
+----Ready to get commands
+Current context: Router.
+Type
+	'help' to see available commands;
+	'back' to go to previous context;
+	'exit' to exit.
+
+Waiting for command...
+Change context to DynArray. Available commands: [help, push, get, remove, insert, size, list]
+Available commands: [help, push, get, remove, insert, size, list]
+Pushed element: 87
+Insert element `456` at index `0`
+Pushed element: 325
+DynArray: [456, 87, 325]
+Got element `87` at index `1`
+Removed element `87` at index `1`
+Size is 2
+Error: unknown command for DynArray. Available commands: [help, push, get, remove, insert, size, list]
+Exiting

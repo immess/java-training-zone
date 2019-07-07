@@ -1,0 +1,27 @@
+stack
+magic
+back
+back
+array
+back
+queue
+back
+back
+----Ready to get commands
+Current context: Router.
+Type
+	'help' to see available commands;
+	'back' to go to previous context;
+	'exit' to exit.
+
+Waiting for command...
+Change context to Stack. Available commands: [help, push, pop, peek, size, list, magic]
+Change context to Stack. Available commands: [help, push, pop, peek, size, list, magic]
+Result: weeee
+Back to Stack. Available commands: [help, push, pop, peek, size, list, magic]
+Back to Router. Available commands: [help, array, stack, queue]
+Change context to DynArray. Available commands: [help, push, get, remove, insert, size, list]
+Back to Router. Available commands: [help, array, stack, queue]
+Change context to Queue. Available commands: [help, push, peek, pop, insert, remove, get, size, list]
+Back to Router. Available commands: [help, array, stack, queue]
+Exiting

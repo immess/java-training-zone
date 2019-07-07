@@ -1,0 +1,28 @@
+stack
+help
+push 45
+push 778
+peek
+pop
+peek
+size
+list
+exit
+----Ready to get commands
+Current context: Router.
+Type
+	'help' to see available commands;
+	'back' to go to previous context;
+	'exit' to exit.
+
+Waiting for command...
+Change context to Stack. Available commands: [help, push, pop, peek, size, list, magic]
+Available commands: [help, push, pop, peek, size, list, magic]
+Pushed element: 45
+Pushed element: 778
+Peeked element: 778
+Popped element: 778
+Peeked element: 45
+Size is 1
+Stack: [45]
+Exiting
