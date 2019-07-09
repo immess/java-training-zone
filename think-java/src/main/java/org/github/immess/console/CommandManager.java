@@ -28,14 +28,10 @@ public class CommandManager implements Runnable {
         writer.println("\nWaiting for command...");
         while (scanner.hasNextLine()) {
             String inputLine = scanner.nextLine();
-//            writer.println("Got this: " + inputLine);
-
             if (!handleNextCommand(inputLine)) {
                 writer.println("Exiting");
                 return;
             }
-
-//            writer.println("\nWaiting for command...");
         }
 
     }
@@ -44,8 +40,6 @@ public class CommandManager implements Runnable {
         String[] inputParts = inputLine.split(" ");
         String command = inputParts[0];
         String[] args = Arrays.copyOfRange(inputParts, 1, inputParts.length);
-
-//        writer.println(String.format("Parsed command `%s` with arguments %s", command, Arrays.toString(args)));
 
         if (context.shouldEnd(command)) {
             return false;
