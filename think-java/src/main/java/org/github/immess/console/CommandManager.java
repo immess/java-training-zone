@@ -1,5 +1,7 @@
 package org.github.immess.console;
 
+import org.github.immess.utils.Utils;
+
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.PrintWriter;
@@ -37,7 +39,7 @@ public class CommandManager implements Runnable {
     }
 
     private boolean handleNextCommand(String inputLine) {
-        String[] inputParts = inputLine.split(" ");
+        String[] inputParts = Utils.splitWithQuote(inputLine, ' ', '"');
         String command = inputParts[0];
         String[] args = Arrays.copyOfRange(inputParts, 1, inputParts.length);
 

@@ -6,6 +6,7 @@ import org.github.immess.console.HandleResult;
 
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.Files;
 import java.util.Map;
 
 public class FileManagerCommandHandler extends AbstractCommandHandler {
@@ -22,11 +23,12 @@ public class FileManagerCommandHandler extends AbstractCommandHandler {
 
         handlers.put("ls", args -> {
             StringBuilder builder = new StringBuilder();
-            if (file.list() == null) {
+            String[] files = file.list();
+            if (files.length == 0) {
                 return new HandleResult("There are no files in here");
             }
-            for (String x : file.list()) {
-                builder.append(x)
+            for (String file : files) {
+                builder.append(file)
                     .append("\n");
             }
             return new HandleResult(builder.toString());
@@ -35,16 +37,15 @@ public class FileManagerCommandHandler extends AbstractCommandHandler {
             try {
                 return new HandleResult(file.getCanonicalPath());
             } catch (IOException e) {
-                throw new RuntimeException(e);
+                return new HandleResult("Operation failed: " + e.getMessage());
             }
         });
         handlers.put("cd", args -> {
-            if (args.length > 1) {
-                return new HandleResult("So much arguments, too many");
+            HandleResult argsCheckResult = checkSingleArg(args);
+            if (argsCheckResult != null) {
+                return argsCheckResult;
             }
-            if (args.length < 1) {
-                return new HandleResult("Need new path");
-            }
+
             String path = args[0];
             File nextFile = new File(file, path);
             if (!nextFile.exists()) {
@@ -53,20 +54,67 @@ public class FileManagerCommandHandler extends AbstractCommandHandler {
             if (!nextFile.isDirectory()) {
                 return new HandleResult("Not a directory");
             }
-            file = nextFile;
+
             try {
-                return new HandleResult("Changed dir to " + file.getCanonicalPath());
+                file = nextFile.getCanonicalFile();
             } catch (IOException e) {
-                throw  new RuntimeException(e);
+                return new HandleResult("Can't change dir: " + e.getMessage());
+            }
+
+            return new HandleResult("Changed dir to " + file.getPath());
+        });
+        handlers.put("mkdir", args -> {
+            HandleResult argsCheckResult = checkSingleArg(args);
+            if (argsCheckResult != null) {
+                return argsCheckResult;
+            }
+
+            String path = args[0];
+            File newDir = new File(file, path);
+            if (newDir.exists()) {
+                return new HandleResult("Directory already exists");
+            }
+            if (!newDir.mkdirs()) {
+                return new HandleResult("Can't create dir");
+            }
+            try {
+                return new HandleResult("Created dir " + newDir.getCanonicalPath());
+            } catch (IOException e) {
+                return new HandleResult("Operation failed: " + e.getMessage());
             }
         });
-        //todo mkdir dir
-        //todo touch file_name
+        handlers.put("touch", args -> {
+            HandleResult argsCheckResult = checkSingleArg(args);
+            if (argsCheckResult != null) {
+                return argsCheckResult;
+            }
+
+            String path = args[0];
+            File newFile = new File(file, path);
+            try {
+                if (!newFile.createNewFile()) {
+                    return new HandleResult("File already exist");
+                }
+            } catch (IOException e) {
+                return new HandleResult("Can't create file: " + e.getMessage());
+            }
+            return new HandleResult("Created file " + newFile.getName());
+        });
         //todo cp file tgt_file
         //todo mv file tgt_file
         //todo rm file
         //todo cat file
 
         //todo tests
+    }
+
+    private HandleResult checkSingleArg(String[] args) {
+        if (args.length > 1) {
+            return new HandleResult("So much arguments, too many");
+        }
+        if (args.length < 1) {
+            return new HandleResult("Need argument");
+        }
+        return null;
     }
 }
