@@ -6,7 +6,11 @@ import org.github.immess.console.HandleResult;
 import org.github.immess.utils.Utils;
 
 import java.io.*;
+import java.time.Instant;
+import java.util.Arrays;
+import java.util.HashSet;
 import java.util.Map;
+import java.util.Set;
 
 public class FileManagerCommandHandler extends AbstractCommandHandler {
     private File file = new File(System.getProperty("user.dir", "."));
@@ -21,14 +25,28 @@ public class FileManagerCommandHandler extends AbstractCommandHandler {
         super.defineCommands(handlers);
 
         handlers.put("ls", args -> {
-            //todo support -l (table view: drwx date size/- name)
+            Set<String> argsSet = new HashSet<>(Arrays.asList(args));
+            boolean listFlag = argsSet.contains("-l");
+
             StringBuilder builder = new StringBuilder();
-            String[] files = file.list();
-            if (files.length == 0) {
+            File[] files = file.listFiles();
+            if (isDirEmpty(files)) {
                 return new HandleResult("There are no files in here");
             }
-            for (String file : files) {
-                builder.append(file)
+            for (File file : files) {
+                if (listFlag) {
+                    builder.append(file.isDirectory() ? "d" : "-")
+                        .append(file.canRead() ? "r" : "-")
+                        .append(file.canWrite() ? "w" : "-")
+                        .append(file.canExecute() ? "x" : "-")
+                        .append("\t")
+                        .append(Instant.ofEpochMilli(file.lastModified()))
+                        .append("\t")
+                        .append(file.isDirectory() ? "-" : file.length())
+                        .append("\t");
+                }
+
+                builder.append(file.getName())
                     .append("\n");
             }
             return new HandleResult(builder.toString());
@@ -133,7 +151,7 @@ public class FileManagerCommandHandler extends AbstractCommandHandler {
             if (!rmFile.exists()) {
                 return new HandleResult("File doesn't exist");
             }
-            if (rmFile.isDirectory() && rmFile.list().length > 0) {
+            if (rmFile.isDirectory() && !isDirEmpty(rmFile.listFiles())) {
                 return new HandleResult("Can't remove. Directory isn't empty");
             }
             if (rmFile.delete()) {
@@ -186,7 +204,7 @@ public class FileManagerCommandHandler extends AbstractCommandHandler {
             if (!openFile.isFile()) {
                 return new HandleResult("Not a file");
             }
-            try (FileInputStream in = new FileInputStream(openFile)){
+            try (FileInputStream in = new FileInputStream(openFile)) {
                 return new HandleResult(Utils.str(in));
             } catch (IOException e) {
                 return new HandleResult("Operation failed: " + e);
@@ -198,10 +216,11 @@ public class FileManagerCommandHandler extends AbstractCommandHandler {
         //todo tests
     }
 
+    private boolean isDirEmpty(File[] files) {
+        return files == null || files.length == 0;
+    }
+
     private HandleResult checkArgsNum(String[] args, int num) {
-        if (args.length > num) {
-            return new HandleResult("So much arguments, too many");
-        }
         if (args.length < num) {
             return new HandleResult("Need more arguments");
         }
