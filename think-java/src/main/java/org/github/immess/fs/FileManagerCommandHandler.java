@@ -3,10 +3,9 @@ package org.github.immess.fs;
 import org.github.immess.console.AbstractCommandHandler;
 import org.github.immess.console.Command;
 import org.github.immess.console.HandleResult;
+import org.github.immess.utils.Utils;
 
-import java.io.File;
-import java.io.IOException;
-import java.nio.file.Files;
+import java.io.*;
 import java.util.Map;
 
 public class FileManagerCommandHandler extends AbstractCommandHandler {
@@ -22,6 +21,7 @@ public class FileManagerCommandHandler extends AbstractCommandHandler {
         super.defineCommands(handlers);
 
         handlers.put("ls", args -> {
+            //todo support -l (table view: drwx date size/- name)
             StringBuilder builder = new StringBuilder();
             String[] files = file.list();
             if (files.length == 0) {
@@ -41,7 +41,7 @@ public class FileManagerCommandHandler extends AbstractCommandHandler {
             }
         });
         handlers.put("cd", args -> {
-            HandleResult argsCheckResult = checkSingleArg(args);
+            HandleResult argsCheckResult = checkArgsNum(args, 1);
             if (argsCheckResult != null) {
                 return argsCheckResult;
             }
@@ -64,7 +64,8 @@ public class FileManagerCommandHandler extends AbstractCommandHandler {
             return new HandleResult("Changed dir to " + file.getPath());
         });
         handlers.put("mkdir", args -> {
-            HandleResult argsCheckResult = checkSingleArg(args);
+            //todo support -p (chain of dirs)
+            HandleResult argsCheckResult = checkArgsNum(args, 1);
             if (argsCheckResult != null) {
                 return argsCheckResult;
             }
@@ -84,7 +85,7 @@ public class FileManagerCommandHandler extends AbstractCommandHandler {
             }
         });
         handlers.put("touch", args -> {
-            HandleResult argsCheckResult = checkSingleArg(args);
+            HandleResult argsCheckResult = checkArgsNum(args, 1);
             if (argsCheckResult != null) {
                 return argsCheckResult;
             }
@@ -100,20 +101,109 @@ public class FileManagerCommandHandler extends AbstractCommandHandler {
             }
             return new HandleResult("Created file " + newFile.getName());
         });
-        //todo cp file tgt_file
-        //todo mv file tgt_file
-        //todo rm file
-        //todo cat file
+        handlers.put("mv", args -> {
+            HandleResult argsCheckResult = checkArgsNum(args, 2);
+            if (argsCheckResult != null) {
+                return argsCheckResult;
+            }
+            String sourcePath = args[0];
+            String targetPath = args[1];
+            File source = new File(file, sourcePath);
+            File target = new File(file, targetPath);
+            if (!source.exists()) {
+                return new HandleResult("Sourse file doesn't exist");
+            }
+            if (target.exists()) {
+                return new HandleResult("Can't move. Target file already exists");
+            }
+
+            if (source.renameTo(target)) {
+                return new HandleResult("File moved");
+            } else {
+                return new HandleResult("Something wrong");
+            }
+        });
+        handlers.put("rm", args -> {
+            //todo support -r
+            HandleResult argsCheckResult = checkArgsNum(args, 1);
+            if (argsCheckResult != null) {
+                return argsCheckResult;
+            }
+            File rmFile = new File(file, args[0]);
+            if (!rmFile.exists()) {
+                return new HandleResult("File doesn't exist");
+            }
+            if (rmFile.isDirectory() && rmFile.list().length > 0) {
+                return new HandleResult("Can't remove. Directory isn't empty");
+            }
+            if (rmFile.delete()) {
+                return new HandleResult("File removed");
+            } else {
+                return new HandleResult("Something wrong");
+            }
+        });
+        handlers.put("cp", args -> {
+            HandleResult argsCheckResult = checkArgsNum(args, 2);
+            if (argsCheckResult != null) {
+                return argsCheckResult;
+            }
+            File sourceFile = new File(file, args[0]);
+            File targetFile = new File(file, args[1]);
+
+            if (!sourceFile.exists()) {
+                return new HandleResult("Source file doesn't exist");
+            }
+            if (!sourceFile.isFile()) {
+                return new HandleResult("Can't copy. Not a file");
+            }
+            try {
+                if (!targetFile.createNewFile()) {
+                    return new HandleResult("Target file already exists");
+                }
+            } catch (IOException e) {
+                return new HandleResult("Can't create file: " + e);
+            }
+
+            try (FileInputStream in = new FileInputStream(sourceFile);
+                 FileOutputStream out = new FileOutputStream(targetFile)) {
+                out.write(Utils.str(in).getBytes());
+            } catch (Exception e) {
+                return new HandleResult("Operation failed: " + e);
+            }
+
+            return new HandleResult("File copied");
+        });
+        handlers.put("cat", args -> {
+            HandleResult argsCheckResult = checkArgsNum(args, 1);
+            if (argsCheckResult != null) {
+                return argsCheckResult;
+            }
+            String path = args[0];
+            File openFile = new File(file, path);
+            if (!openFile.exists()) {
+                return new HandleResult("File doesn't exist");
+            }
+            if (!openFile.isFile()) {
+                return new HandleResult("Not a file");
+            }
+            try (FileInputStream in = new FileInputStream(openFile)){
+                return new HandleResult(Utils.str(in));
+            } catch (IOException e) {
+                return new HandleResult("Operation failed: " + e);
+            }
+        });
+
+        //todo support additional arguments
 
         //todo tests
     }
 
-    private HandleResult checkSingleArg(String[] args) {
-        if (args.length > 1) {
+    private HandleResult checkArgsNum(String[] args, int num) {
+        if (args.length > num) {
             return new HandleResult("So much arguments, too many");
         }
-        if (args.length < 1) {
-            return new HandleResult("Need argument");
+        if (args.length < num) {
+            return new HandleResult("Need more arguments");
         }
         return null;
     }
