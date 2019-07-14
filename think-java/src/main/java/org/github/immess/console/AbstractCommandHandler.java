@@ -27,4 +27,18 @@ public abstract class AbstractCommandHandler implements CommandHandler {
     public final String[] getCommands() {
         return handlers.keySet().toArray(new String[0]);
     }
+
+    protected String checkArgsNum(String[] args, int num) {
+        if (args.length < num) {
+            return String.format("Need more arguments (need = %d, actual = %d)", num, args.length);
+        }
+        return null;
+    }
+
+    protected void checkArgsNumThenError(String[] args, int num) {
+        String argsCheckResult = checkArgsNum(args, num);
+        if (argsCheckResult != null) {
+            throw new HandleException(argsCheckResult);
+        }
+    }
 }

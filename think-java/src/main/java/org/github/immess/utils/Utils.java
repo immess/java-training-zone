@@ -1,20 +1,31 @@
 package org.github.immess.utils;
 
-import java.io.ByteArrayOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
+import java.io.*;
 import java.util.ArrayList;
 
 public class Utils {
 
     public static String str(InputStream stream) throws IOException {
-        byte[] buffer = new byte[2048];
         ByteArrayOutputStream out = new ByteArrayOutputStream();
+        copy(stream,out);
+        return out.toString("UTF-8");
+    }
+
+    public static void copy(InputStream in, OutputStream out) throws IOException {
+        byte[] buffer = new byte[2048];
         int length;
-        while ((length = stream.read(buffer)) > 0) {
+        while ((length = in.read(buffer)) > 0) {
             out.write(buffer, 0, length);
         }
-        return out.toString("UTF-8");
+    }
+
+    public static void tryCopy(InputStream in, OutputStream out) throws IOException {
+        byte[] buffer = new byte[2048];
+        int length;
+        while ((length = in.available()) > 0) {
+            int readCount = in.read(buffer, 0, length);
+            out.write(buffer, 0, readCount);
+        }
     }
 
     public static String[] splitWithQuote(String source, char delimiter, char quote) {
@@ -46,5 +57,12 @@ public class Utils {
         }
 
         return result.toArray(new String[0]);
+    }
+
+    public static String str(Exception cause) {
+        StringWriter sw = new StringWriter();
+        PrintWriter writer = new PrintWriter(sw);
+        cause.printStackTrace(writer);
+        return sw.toString();
     }
 }

@@ -262,11 +262,4 @@ public class FileManagerCommandHandler extends AbstractCommandHandler {
     private boolean isDirEmpty(File[] files) {
         return files == null || files.length == 0;
     }
-
-    private String checkArgsNum(String[] args, int num) {
-        if (args.length < num) {
-            return "Need more arguments";
-        }
-        return null;
-    }
 }

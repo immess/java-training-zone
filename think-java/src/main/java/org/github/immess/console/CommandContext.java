@@ -1,5 +1,7 @@
 package org.github.immess.console;
 
+import org.github.immess.utils.Utils;
+
 import java.util.Arrays;
 import java.util.Stack;
 
@@ -23,7 +25,15 @@ public class CommandContext {
             return String.format("Back to %s. %s", stack.peek().getName(), availableCommands());
         }
 
-        HandleResult handleResult = stack.peek().handle(command, args);
+        HandleResult handleResult = null;
+        try {
+            handleResult = stack.peek().handle(command, args);
+        } catch (HandleException e){
+            handleResult = new HandleResult("Error: " + e.getMessage());
+        } catch (Exception e){
+            handleResult = new HandleResult("Error:\n" + Utils.str(e));
+        }
+
         if (handleResult.next != stack.peek() && handleResult.next != null) {
             stack.push(handleResult.next);
             String answer = String.format("Change context to %s. %s", stack.peek().getName(), availableCommands());
